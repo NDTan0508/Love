@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server'
 import { createAdminClient, getUserContext, jsonError } from '../../../../../lib/aiServerUtils'
 import { completeDailyMission } from '../../../../../lib/dailyMissionServer'
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { userId, coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const mission = await completeDailyMission(admin, coupleId, userId, params.id)
+    const mission = await completeDailyMission(admin, coupleId, userId, id)
     return NextResponse.json({ ok: true, mission })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'mission_complete_failed'

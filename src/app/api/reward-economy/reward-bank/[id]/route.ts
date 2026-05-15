@@ -16,12 +16,13 @@ function parseEffect(value: unknown) {
   return allowed.includes(value as any) ? (value as any) : undefined
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const body = await req.json().catch(() => ({}))
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const item = await updateRewardBankItem(admin, coupleId, params.id, String(body.text || ''), parseType(body.type), parseCategory(body.category), body.intensity === undefined ? undefined : Number(body.intensity), body.weight === undefined ? undefined : Number(body.weight), parseEffect(body.effect))
+    const item = await updateRewardBankItem(admin, coupleId, id, String(body.text || ''), parseType(body.type), parseCategory(body.category), body.intensity === undefined ? undefined : Number(body.intensity), body.weight === undefined ? undefined : Number(body.weight), parseEffect(body.effect))
     return NextResponse.json({ ok: true, item })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'reward_bank_update_failed'
@@ -32,11 +33,12 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    await deleteRewardBankItem(admin, coupleId, params.id)
+    await deleteRewardBankItem(admin, coupleId, id)
     return NextResponse.json({ ok: true })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'reward_bank_delete_failed'

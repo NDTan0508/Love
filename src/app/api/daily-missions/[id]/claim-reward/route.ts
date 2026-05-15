@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server'
 import { createAdminClient, getUserContext, jsonError } from '../../../../../lib/aiServerUtils'
 import { claimDailyMissionReward } from '../../../../../lib/dailyMissionServer'
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { userId, coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const result = await claimDailyMissionReward(admin, coupleId, userId, params.id)
+    const result = await claimDailyMissionReward(admin, coupleId, userId, id)
     return NextResponse.json({ ok: true, ...result })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'mission_reward_claim_failed'

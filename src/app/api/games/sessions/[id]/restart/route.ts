@@ -10,14 +10,15 @@ function handleError(err: unknown) {
   return jsonError('Không thể chơi lại lúc này.', 500)
 }
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
     const { data: session, error: loadError } = await admin
       .from('game_sessions')
       .select('id, couple_id, game_type, created_by')
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('couple_id', coupleId)
       .single()
 
@@ -38,7 +39,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
         completed_at: null,
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .select('id, couple_id, game_type, status, created_by, current_turn_user_id, winner_user_id, round, state, score, created_at, updated_at, completed_at')
       .single()
 

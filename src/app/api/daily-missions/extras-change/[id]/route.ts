@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server'
 import { createAdminClient, getUserContext, jsonError } from '../../../../../lib/aiServerUtils'
 import { reviewMissionExtrasChange } from '../../../../../lib/dailyMissionServer'
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const body = await req.json().catch(() => ({}))
     const decision = body.decision === 'reject' ? 'reject' : 'approve'
     const { userId, coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const request = await reviewMissionExtrasChange(admin, coupleId, userId, params.id, decision)
+    const request = await reviewMissionExtrasChange(admin, coupleId, userId, id, decision)
     return NextResponse.json({ ok: true, request })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'change_review_failed'

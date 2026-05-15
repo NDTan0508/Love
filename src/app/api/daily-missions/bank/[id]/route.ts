@@ -7,12 +7,13 @@ function parseMissionKind(value: unknown): DailyMissionKind | undefined {
   return undefined
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const body = await req.json().catch(() => ({}))
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const item = await updateBankItem(admin, coupleId, params.id, String(body.text || ''), parseMissionKind(body.missionKind))
+    const item = await updateBankItem(admin, coupleId, id, String(body.text || ''), parseMissionKind(body.missionKind))
     return NextResponse.json({ ok: true, item })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'bank_update_failed'
@@ -23,11 +24,12 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    await deleteBankItem(admin, coupleId, params.id)
+    await deleteBankItem(admin, coupleId, id)
     return NextResponse.json({ ok: true })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'bank_delete_failed'

@@ -2,12 +2,13 @@ import { NextResponse } from 'next/server'
 import { createAdminClient, getUserContext, jsonError } from '../../../../../../lib/aiServerUtils'
 import { useRewardInventoryItem } from '../../../../../../lib/rewardEconomyServer'
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const body = await req.json().catch(() => ({}))
     const { userId, coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const result = await useRewardInventoryItem(admin, coupleId, userId, params.id, body.target || {})
+    const result = await useRewardInventoryItem(admin, coupleId, userId, id, body.target || {})
     return NextResponse.json({ ok: true, ...result })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'reward_use_failed'

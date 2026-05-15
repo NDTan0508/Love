@@ -63,7 +63,8 @@ function getActivePlayers(players: GamePlayer[]) {
   })
 }
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { userId, coupleId } = await getUserContext(req)
     const admin = createAdminClient()
@@ -74,7 +75,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     const { data: sessionRow, error: sessionError } = await admin
       .from('game_sessions')
       .select('id, couple_id, game_type, status, created_by, current_turn_user_id, winner_user_id, round, state, score, created_at, updated_at, completed_at')
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('couple_id', coupleId)
       .single()
 
@@ -87,14 +88,14 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     await admin
       .from('game_players')
       .update({ last_seen: now })
-      .eq('session_id', params.id)
+      .eq('session_id', id)
       .eq('couple_id', coupleId)
       .eq('user_id', userId)
 
     const { data: playerRows, error: playerError } = await admin
       .from('game_players')
       .select('id, session_id, couple_id, user_id, nickname, score, joined_at, last_seen')
-      .eq('session_id', params.id)
+      .eq('session_id', id)
       .eq('couple_id', coupleId)
       .order('joined_at', { ascending: true })
 
@@ -127,7 +128,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     }
 
     let next = applyGameMove(session, players, {
-      sessionId: params.id,
+      sessionId: id,
       userId,
       moveType,
       payload: {
@@ -152,7 +153,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     }
 
     const { error: moveError } = await admin.from('game_moves').insert({
-      session_id: params.id,
+      session_id: id,
       couple_id: coupleId,
       user_id: userId,
       move_type: moveType,
@@ -172,7 +173,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
         completed_at: next.completedAt,
         updated_at: new Date().toISOString()
       })
-      .eq('id', params.id)
+      .eq('id', id)
       .select('id, couple_id, game_type, status, created_by, current_turn_user_id, winner_user_id, round, state, score, created_at, updated_at, completed_at')
       .single()
 

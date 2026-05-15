@@ -7,12 +7,13 @@ function parseCategory(value: unknown) {
   return allowed.includes(value as any) ? (value as any) : undefined
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const body = await req.json().catch(() => ({}))
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    const item = await updatePunishmentBankItem(admin, coupleId, params.id, String(body.text || ''), parseCategory(body.category), body.intensity === undefined ? undefined : Number(body.intensity), typeof body.safe === 'boolean' ? body.safe : undefined)
+    const item = await updatePunishmentBankItem(admin, coupleId, id, String(body.text || ''), parseCategory(body.category), body.intensity === undefined ? undefined : Number(body.intensity), typeof body.safe === 'boolean' ? body.safe : undefined)
     return NextResponse.json({ ok: true, item })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'punishment_bank_update_failed'
@@ -23,11 +24,12 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { coupleId } = await getUserContext(req)
     const admin = createAdminClient()
-    await deletePunishmentBankItem(admin, coupleId, params.id)
+    await deletePunishmentBankItem(admin, coupleId, id)
     return NextResponse.json({ ok: true })
   } catch (error) {
     const code = error instanceof Error ? error.message : 'punishment_bank_delete_failed'

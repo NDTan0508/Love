@@ -8,14 +8,15 @@ function handleError(err: unknown) {
   return jsonError('Không thể cập nhật bất ngờ lúc này.', 500)
 }
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { supabase, userId, coupleId } = await getUserContext(req)
     const body = await req.json().catch(() => ({}))
     const { data, error } = await supabase
       .from('wishlist_reservations')
       .upsert({
-        item_id: params.id,
+        item_id: id,
         couple_id: coupleId,
         reserved_by: userId,
         note: typeof body.note === 'string' ? body.note.slice(0, 300) : null,
@@ -32,13 +33,14 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { supabase, userId } = await getUserContext(req)
     const { error } = await supabase
       .from('wishlist_reservations')
       .delete()
-      .eq('item_id', params.id)
+      .eq('item_id', id)
       .eq('reserved_by', userId)
 
     if (error) throw error

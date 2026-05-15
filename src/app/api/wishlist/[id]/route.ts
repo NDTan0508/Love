@@ -8,7 +8,8 @@ function handleError(err: unknown) {
   return jsonError('Không thể cập nhật wishlist lúc này.', 500)
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { supabase, userId, coupleId } = await getUserContext(req)
     const body = await req.json().catch(() => ({}))
@@ -18,7 +19,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const { data: existing, error: existingError } = await supabase
       .from('wishlist_items')
       .select('id, created_by')
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('couple_id', coupleId)
       .single()
 
@@ -36,7 +37,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const { data, error } = await supabase
       .from('wishlist_items')
       .update(patch)
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('couple_id', coupleId)
       .select('id, couple_id, created_by, desired_by, title, note, category, status, xp_cost, image_url, visibility, created_at, updated_at')
       .single()
@@ -48,13 +49,14 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   }
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   try {
     const { supabase, userId, coupleId } = await getUserContext(req)
     const { error } = await supabase
       .from('wishlist_items')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
       .eq('couple_id', coupleId)
       .eq('created_by', userId)
 
