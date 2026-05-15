@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love App - Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --primary:#ff4f86;
+      --primary-light:#fff3f7;
+      --text:#1f2559;
+      --sub:#7e829c;
+    }
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:#fff;
+      color:var(--text);
+    }
+
+    img{
+      width:100%;
+      display:block;
+    }
+
+    .app{
+      width:100%;
+      max-width:480px;
+      margin:auto;
+      min-height:100vh;
+      padding:22px 18px 110px;
+      background:#fff;
+    }
+
+    /* HEADER */
+
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:26px;
+    }
+
+    .logo{
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .logo span{
+      color:var(--primary);
+    }
+
+    .avatars{
+      display:flex;
+      gap:8px;
+    }
+
+    .avatar{
+      width:36px;
+      height:36px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff7aa8,#ff4f86);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:16px;
+    }
+
+    /* HERO */
+
+    .hero h1{
+      font-size:34px;
+      line-height:1.25;
+      margin-bottom:10px;
+      font-weight:800;
+    }
+
+    .hero p{
+      color:var(--sub);
+      font-size:15px;
+      line-height:1.6;
+      margin-bottom:24px;
+    }
+
+    /* COUNTER */
+
+    .counter-card{
+      border:2px solid #ffe1ea;
+      border-radius:28px;
+      padding:22px;
+      position:relative;
+      margin-bottom:18px;
+    }
+
+    .counter-title{
+      font-size:18px;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .days{
+      font-size:58px;
+      line-height:1;
+      color:var(--primary);
+      font-weight:800;
+    }
+
+    .days-label{
+      color:var(--primary);
+      font-size:22px;
+      font-weight:700;
+      margin-top:4px;
+    }
+
+    .counter-note{
+      position:absolute;
+      right:24px;
+      top:50%;
+      transform:translateY(-50%);
+      text-align:center;
+      color:#ff78a3;
+      font-weight:700;
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    /* STATS */
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-bottom:30px;
+    }
+
+    .stat-card{
+      background:var(--primary-light);
+      border-radius:22px;
+      padding:18px 10px;
+      text-align:center;
+    }
+
+    .stat-icon{
+      font-size:22px;
+      margin-bottom:10px;
+    }
+
+    .stat-value{
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .stat-label{
+      margin-top:4px;
+      color:var(--sub);
+      font-size:13px;
+    }
+
+    /* SECTION */
+
+    .section-title{
+      font-size:24px;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    /* MEMORY */
+
+    .memory-card{
+      display:flex;
+      gap:14px;
+      background:#fff;
+      border-radius:24px;
+      padding:14px;
+      border:1px solid #f3f3f3;
+      box-shadow:0 6px 20px rgba(0,0,0,.04);
+    }
+
+    .date-box{
+      width:72px;
+      flex-shrink:0;
+      border-radius:18px;
+      background:var(--primary-light);
+      text-align:center;
+      padding:14px 10px;
+    }
+
+    .date-box .day{
+      font-size:28px;
+      font-weight:800;
+      line-height:1;
+      color:var(--primary);
+    }
+
+    .date-box .month{
+      margin-top:4px;
+      color:var(--primary);
+      font-weight:700;
+    }
+
+    .memory-content{
+      flex:1;
+    }
+
+    .memory-title{
+      font-size:17px;
+      font-weight:800;
+      margin-bottom:8px;
+    }
+
+    .memory-sub{
+      font-size:14px;
+      line-height:1.5;
+      color:var(--sub);
+    }
+
+    .memory-image{
+      width:84px;
+      height:84px;
+      border-radius:18px;
+      overflow:hidden;
+      flex-shrink:0;
+    }
+
+    .memory-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      width:100%;
+      max-width:480px;
+      margin:auto;
+      background:#fff;
+      border-top:1px solid #f2f2f2;
+      padding:12px 24px calc(12px + env(safe-area-inset-bottom));
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+    }
+
+    .nav-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:5px;
+      width:60px;
+      color:#7f84a0;
+      font-size:12px;
+    }
+
+    .nav-item.active{
+      color:var(--primary);
+      font-weight:700;
+    }
+
+    .nav-icon{
+      font-size:20px;
+    }
+
+    .heart-btn{
+      width:66px;
+      height:66px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#ff6b9c,#ff4f86);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:28px;
+      margin-top:-32px;
+      box-shadow:0 12px 24px rgba(255,79,134,.35);
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <div class="header">
+
+    <div class="logo">
+      Web Love <span>💕</span>
+    </div>
+
+    <div class="avatars">
+      <div class="avatar">👩</div>
+      <div class="avatar">👨</div>
+    </div>
+
+  </div>
+
+  <div class="hero">
+
+    <h1>Hi Châu & Nam 👋</h1>
+
+    <p>
+      Cùng nhau tạo nên thật nhiều<br>
+      kỷ niệm đẹp nhé 💕
+    </p>
+
+  </div>
+
+  <div class="counter-card">
+
+    <div class="counter-title">
+      Ngày yêu nhau
+    </div>
+
+    <div class="days">427</div>
+
+    <div class="days-label">
+      ngày
+    </div>
+
+    <div class="counter-note">
+      love<br>
+      counter →
+    </div>
+
+  </div>
+
+  <div class="stats">
+
+    <div class="stat-card">
+      <div class="stat-icon">👥</div>
+      <div class="stat-value">32</div>
+      <div class="stat-label">Lần gặp nhau</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">🖼️</div>
+      <div class="stat-value">56</div>
+      <div class="stat-label">Kỷ niệm</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">💬</div>
+      <div class="stat-value">1.243</div>
+      <div class="stat-label">Tin nhắn</div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    On this day ☕
+  </div>
+
+  <div class="memory-card">
+
+    <div class="date-box">
+      <div class="day">14</div>
+      <div class="month">Feb</div>
+    </div>
+
+    <div class="memory-content">
+
+      <div class="memory-title">
+        Lần đầu gặp ☕
+      </div>
+
+      <div class="memory-sub">
+        ở thư viện 📚<br><br>
+        1 năm trước
+      </div>
+
+    </div>
+
+    <div class="memory-image">
+      <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=800&auto=format&fit=crop">
+    </div>
+
+  </div>
+
+</div>
+
+<nav class="navbar">
+
+  <a href="#" class="nav-item active">
+    <div class="nav-icon">🏠</div>
+    <div>Home</div>
+  </a>
+
+  <a href="#" class="nav-item">
+    <div class="nav-icon">🗂️</div>
+    <div>Timeline</div>
+  </a>
+
+  <div class="heart-btn">
+    ❤
+  </div>
+
+  <a href="#" class="nav-item">
+    <div class="nav-icon">🎁</div>
+    <div>Gifts</div>
+  </a>
+
+  <a href="#" class="nav-item">
+    <div class="nav-icon">⚙️</div>
+    <div>Profile</div>
+  </a>
+
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>AI Love Insight</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+
+      --primary:#ff5b91;
+      --primary-dark:#ff4b82;
+
+      --purple:#9f7fff;
+
+      --text:#1f245c;
+      --sub:#8b90ad;
+
+      --bg:#fffafb;
+
+      --soft:#fff3f7;
+
+      --border:#f3dfe7;
+
+      --card:#ffffff;
+    }
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:var(--bg);
+
+      display:flex;
+      justify-content:center;
+
+      color:var(--text);
+    }
+
+    .app{
+      width:100%;
+      max-width:430px;
+      min-height:100vh;
+
+      padding:18px 18px 40px;
+
+      background:
+        radial-gradient(circle at top right,#fff1f5 0%,transparent 30%),
+        radial-gradient(circle at bottom left,#f6efff 0%,transparent 35%),
+        #fffafb;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* =========================
+       STATUS BAR
+    ========================== */
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:22px;
+
+      color:#111;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .status-right{
+      display:flex;
+      align-items:center;
+      gap:6px;
+
+      font-size:13px;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      margin-bottom:24px;
+    }
+
+    .back{
+      font-size:25px;
+      color:#1f245c;
+      font-weight:700;
+    }
+
+    .title{
+      font-size:22px;
+      font-weight:900;
+
+      color:#1f245c;
+
+      letter-spacing:-0.3px;
+    }
+
+    .menu{
+      font-size:24px;
+      color:#1f245c;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      text-align:center;
+
+      margin-bottom:22px;
+    }
+
+    .hero h1{
+      color:#1f245c;
+      font-size:28px;
+      font-weight:900;
+
+      margin-bottom:10px;
+    }
+
+    .hero p{
+      color:#8c91ad;
+      font-size:15px;
+      line-height:1.7;
+      font-weight:700;
+
+      width:90%;
+      margin:auto;
+    }
+
+    /* =========================
+       ROBOT SECTION
+    ========================== */
+
+    .robot-section{
+      position:relative;
+
+      margin-bottom:28px;
+    }
+
+    .robot-wrap{
+      width:210px;
+      height:220px;
+
+      margin:auto;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      position:relative;
+    }
+
+    .robot{
+      width:140px;
+      height:170px;
+
+      position:relative;
+    }
+
+    /* head */
+
+    .robot-head{
+      width:100px;
+      height:84px;
+
+      border-radius:30px;
+
+      margin:auto;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #ebe7ff 100%
+        );
+
+      border:3px solid #8d7cff;
+
+      position:relative;
+
+      box-shadow:
+        0 10px 20px rgba(141,124,255,.15);
+    }
+
+    .robot-face{
+      position:absolute;
+
+      left:50%;
+      top:50%;
+
+      transform:translate(-50%,-50%);
+
+      width:70px;
+      height:44px;
+
+      border-radius:22px;
+
+      background:#3b378a;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      gap:10px;
+    }
+
+    .eye{
+      width:10px;
+      height:10px;
+
+      border-radius:50%;
+
+      background:#fff;
+    }
+
+    .mouth{
+      width:16px;
+      height:4px;
+
+      border-radius:999px;
+
+      background:#fff;
+    }
+
+    /* antenna */
+
+    .antenna{
+      position:absolute;
+
+      left:50%;
+      top:-18px;
+
+      transform:translateX(-50%);
+
+      width:4px;
+      height:20px;
+
+      background:#8d7cff;
+
+      border-radius:999px;
+    }
+
+    .antenna::after{
+      content:"";
+
+      position:absolute;
+
+      left:50%;
+      top:-8px;
+
+      transform:translateX(-50%);
+
+      width:12px;
+      height:12px;
+
+      border-radius:50%;
+
+      background:#ff8ab2;
+    }
+
+    /* ears */
+
+    .ear{
+      position:absolute;
+
+      top:24px;
+
+      width:20px;
+      height:34px;
+
+      border-radius:14px;
+
+      background:#ebe7ff;
+
+      border:3px solid #8d7cff;
+    }
+
+    .ear.left{
+      left:-14px;
+    }
+
+    .ear.right{
+      right:-14px;
+    }
+
+    /* body */
+
+    .robot-body{
+      width:76px;
+      height:78px;
+
+      margin:10px auto 0;
+
+      border-radius:24px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #ebe7ff 100%
+        );
+
+      border:3px solid #8d7cff;
+
+      position:relative;
+    }
+
+    .heart{
+      position:absolute;
+
+      left:50%;
+      top:50%;
+
+      transform:translate(-50%,-50%);
+
+      color:#ff6b9d;
+      font-size:28px;
+    }
+
+    /* arms */
+
+    .arm{
+      position:absolute;
+
+      top:98px;
+
+      width:18px;
+      height:54px;
+
+      border-radius:16px;
+
+      background:#ebe7ff;
+
+      border:3px solid #8d7cff;
+    }
+
+    .arm.left{
+      left:26px;
+
+      transform:rotate(14deg);
+    }
+
+    .arm.right{
+      right:26px;
+
+      transform:rotate(-14deg);
+    }
+
+    /* legs */
+
+    .leg{
+      position:absolute;
+
+      bottom:0;
+
+      width:18px;
+      height:42px;
+
+      border-radius:16px;
+
+      background:#ebe7ff;
+
+      border:3px solid #8d7cff;
+    }
+
+    .leg.left{
+      left:48px;
+    }
+
+    .leg.right{
+      right:48px;
+    }
+
+    /* doodles */
+
+    .spark{
+      position:absolute;
+
+      color:#ffb2cb;
+
+      font-size:24px;
+
+      opacity:.95;
+    }
+
+    .s1{
+      left:22px;
+      top:26px;
+    }
+
+    .s2{
+      left:40px;
+      top:86px;
+    }
+
+    .s3{
+      right:34px;
+      top:42px;
+      color:#c08aff;
+    }
+
+    .s4{
+      right:22px;
+      bottom:18px;
+    }
+
+    .insight{
+      position:absolute;
+
+      right:18px;
+      top:46px;
+
+      color:#b06fff;
+
+      font-size:16px;
+      line-height:1.4;
+
+      font-weight:900;
+
+      transform:rotate(-8deg);
+    }
+
+    .insight::after{
+      content:"↷";
+
+      position:absolute;
+
+      left:-8px;
+      bottom:-28px;
+
+      font-size:30px;
+
+      color:#bb86ff;
+    }
+
+    /* =========================
+       INSIGHT CARD
+    ========================== */
+
+    .insight-card{
+      background:#fff;
+
+      border:2px solid #f3dfe7;
+
+      border-radius:30px;
+
+      padding:22px;
+
+      box-shadow:
+        0 12px 24px rgba(255,145,180,.05);
+
+      position:relative;
+
+      overflow:hidden;
+    }
+
+    .card-title{
+      color:#1f245c;
+      font-size:22px;
+      line-height:1.3;
+      font-weight:900;
+
+      margin-bottom:18px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+
+      margin-bottom:26px;
+    }
+
+    .item{
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .dot{
+      color:#ff6b9d;
+      font-size:16px;
+
+      margin-top:3px;
+    }
+
+    .item p{
+      color:#5f6588;
+      font-size:15px;
+      line-height:1.8;
+      font-weight:700;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .btn{
+      width:100%;
+      height:60px;
+
+      border:none;
+
+      border-radius:22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ff7ca8 0%,
+          #ff4f86 100%
+        );
+
+      color:#fff;
+
+      font-size:17px;
+      font-weight:900;
+
+      box-shadow:
+        0 14px 24px rgba(255,91,143,.2);
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div>9:41</div>
+
+    <div class="status-right">
+      <span>📶</span>
+      <span>📡</span>
+      <span>🔋</span>
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <div class="back">‹</div>
+
+    <div class="title">
+      11. AI Love Insight 🤖
+    </div>
+
+    <div class="menu">⋯</div>
+
+  </div>
+
+  <!-- HERO -->
+
+  <div class="hero">
+
+    <h1>
+      AI Love Insight 🤖
+    </h1>
+
+    <p>
+      AI đã phân tích mood, thói quen
+      và tương tác của hai bạn trong 7 tuần qua ✨
+    </p>
+
+  </div>
+
+  <!-- ROBOT -->
+
+  <div class="robot-section">
+
+    <div class="spark s1">✦</div>
+    <div class="spark s2">✦</div>
+    <div class="spark s3">✦</div>
+    <div class="spark s4">✦</div>
+
+    <div class="insight">
+      insight<br>
+      thông minh
+    </div>
+
+    <div class="robot-wrap">
+
+      <div class="robot">
+
+        <div class="robot-head">
+
+          <div class="antenna"></div>
+
+          <div class="ear left"></div>
+          <div class="ear right"></div>
+
+          <div class="robot-face">
+
+            <div class="eye"></div>
+
+            <div class="mouth"></div>
+
+            <div class="eye"></div>
+
+          </div>
+
+        </div>
+
+        <div class="arm left"></div>
+        <div class="arm right"></div>
+
+        <div class="robot-body">
+
+          <div class="heart">
+            💗
+          </div>
+
+        </div>
+
+        <div class="leg left"></div>
+        <div class="leg right"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CARD -->
+
+  <div class="insight-card">
+
+    <div class="card-title">
+      Gợi ý dành cho hai bạn
+    </div>
+
+    <div class="list">
+
+      <div class="item">
+
+        <div class="dot">✦</div>
+
+        <p>
+          Bạn thường vui khi nói tiếp
+          nhau vào cuối tuần 💛
+        </p>
+
+      </div>
+
+      <div class="item">
+
+        <div class="dot">✦</div>
+
+        <p>
+          Hai bạn ít trò chuyện
+          vào thứ 3
+        </p>
+
+      </div>
+
+      <div class="item">
+
+        <div class="dot">✦</div>
+
+        <p>
+          Những lúc cùng nghe nhạc 🎧
+          là thời gian kết nối nhất ✨
+        </p>
+
+      </div>
+
+    </div>
+
+    <button class="btn">
+      Xem chi tiết báo cáo
+    </button>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Love Mission icon">
+  <rect width="512" height="512" rx="112" fill="#fff5f8"/>
+  <circle cx="160" cy="152" r="80" fill="#f9a8d4" opacity="0.9"/>
+  <circle cx="352" cy="152" r="80" fill="#c4b5fd" opacity="0.9"/>
+  <path d="M256 394c-9-8-31-27-61-54-57-52-99-90-99-146 0-50 36-86 84-86 31 0 59 17 76 43 17-26 45-43 76-43 48 0 84 36 84 86 0 56-42 94-99 146-30 27-52 46-61 54Z" fill="#ff6b9d"/>
+  <path d="M169 214c0-30 22-52 51-52" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" opacity="0.75"/>
+</svg>

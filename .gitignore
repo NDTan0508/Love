@@ -1,0 +1,16 @@
+node_modules/
+.next/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+dist/
+pnpm-lock.yaml
+yarn.lock
+data/pending_signups.json
+*.log
+*.pid
+*.tsbuildinfo
+.logs/
+.venv/
+test-results/

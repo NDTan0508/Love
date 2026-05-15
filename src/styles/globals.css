@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --radius-xl: 1rem;
+  --love-bg: #fffafb;
+  --love-card: rgba(255,255,255,0.9);
+  --love-border: rgba(251,207,232,0.72);
+  --love-ink: #27113f;
+  --love-muted: #7a6b86;
+}
+
+body{
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: var(--love-ink);
+}
+
+.love-page{@apply min-h-screen px-4 pb-28 pt-5}
+.love-card{@apply rounded-[24px] border border-pink-100/80 bg-white/90 p-4 shadow-[0_12px_32px_rgba(236,72,153,0.08)]}
+.love-soft-card{@apply rounded-[24px] border border-pink-100 bg-gradient-to-br from-white via-pink-50/70 to-violet-50/60 p-4 shadow-[0_12px_28px_rgba(236,72,153,0.08)]}
+.love-kicker{@apply text-[11px] font-bold uppercase tracking-[0.18em] text-pink-500}
+.love-title{@apply text-2xl font-bold leading-tight text-indigo-950}
+.love-muted{@apply text-sm leading-6 text-slate-600}
+.love-hover-lift{@apply transition duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_18px_42px_rgba(236,72,153,0.14)]}
+.dashboard-enter{animation: dashboard-enter 520ms ease-out both}
+.love-gradient-shift{background-size: 180% 180%; animation: love-gradient-shift 9s ease-in-out infinite}
+.animate-xp-float{animation: xp-float 1.25s ease-out both}
+.animate-heart-pop{animation: heart-pop 1.15s ease-out both}
+.animate-xp-pulse{animation: xp-pulse 900ms ease-out both}
+.animate-gift-glow{animation: gift-glow 1.45s ease-in-out infinite}
+.animate-mochi-idle{animation: mochi-idle 3.2s ease-in-out infinite}
+.animate-mochi-excited{animation: mochi-excited 760ms ease-in-out infinite}
+
+.card{@apply love-card}
+
+@keyframes dashboard-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes love-gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes xp-float {
+  0% { opacity: 0; transform: translateY(8px) scale(0.88); }
+  18% { opacity: 1; transform: translateY(-4px) scale(1.04); }
+  78% { opacity: 1; transform: translateY(-32px) scale(1); }
+  100% { opacity: 0; transform: translateY(-42px) scale(0.96); }
+}
+
+@keyframes heart-pop {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.3); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--heart-x), var(--heart-y)) scale(1.05) rotate(18deg); }
+}
+
+@keyframes xp-pulse {
+  0%, 100% { filter: brightness(1); }
+  45% { filter: brightness(1.22); box-shadow: 0 0 18px rgba(236,72,153,0.45); }
+}
+
+@keyframes gift-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(236,72,153,0); transform: translateY(0); }
+  50% { box-shadow: 0 0 28px rgba(236,72,153,0.3); transform: translateY(-2px); }
+}
+
+@keyframes mochi-idle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes mochi-excited {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-8px) rotate(-1.5deg); }
+  65% { transform: translateY(-2px) rotate(1.5deg); }
+}
+
+button, a, input, textarea, select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

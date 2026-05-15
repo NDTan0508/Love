@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Settings UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#fffafb;
+  font-family:'Nunito',sans-serif;
+
+  display:flex;
+  justify-content:center;
+}
+
+/* =======================
+APP
+======================= */
+
+.app{
+
+  width:390px;
+  min-height:100vh;
+
+  padding:18px 18px 110px;
+
+  position:relative;
+
+  background:
+    radial-gradient(circle at bottom left,#f8f1ff 0%,transparent 35%),
+    radial-gradient(circle at top right,#fff4f8 0%,transparent 30%),
+    #fffafb;
+}
+
+/* =======================
+STATUS
+======================= */
+
+.status{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:18px;
+
+  color:#111;
+
+  font-size:14px;
+  font-weight:900;
+}
+
+.status-icons{
+  display:flex;
+  gap:8px;
+
+  color:#a8a4ba;
+
+  font-size:11px;
+}
+
+/* =======================
+HEADER
+======================= */
+
+.header{
+
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:18px;
+}
+
+.back{
+  font-size:28px;
+  font-weight:700;
+
+  color:#23275e;
+}
+
+.title{
+
+  color:#23275e;
+
+  font-size:20px;
+  font-weight:900;
+}
+
+.gear{
+  font-size:18px;
+  color:#b4abc7;
+}
+
+/* =======================
+PROFILE CARD
+======================= */
+
+.profile{
+
+  background:#fff;
+
+  border:1.5px solid #f2dde7;
+
+  border-radius:22px;
+
+  padding:14px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:14px;
+}
+
+.profile-left{
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.avatars{
+  display:flex;
+}
+
+.avatar{
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  border:1.5px solid #ecd9e3;
+
+  overflow:hidden;
+
+  background:#fff;
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.avatar:last-child{
+  margin-left:-10px;
+}
+
+.profile-text h3{
+
+  color:#23275e;
+
+  font-size:14px;
+  font-weight:900;
+
+  margin-bottom:2px;
+}
+
+.profile-text p{
+
+  color:#9b9fb8;
+
+  font-size:11px;
+  font-weight:700;
+}
+
+.profile-text span{
+  color:#ff5b91;
+}
+
+.edit-btn{
+
+  height:30px;
+
+  padding:0 16px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff7dab 0%,
+      #ff4f87 100%
+    );
+
+  color:#fff;
+
+  font-size:11px;
+  font-weight:800;
+}
+
+/* =======================
+SETTINGS CARD
+======================= */
+
+.settings{
+
+  background:#fff;
+
+  border:1.5px solid #f2dde7;
+
+  border-radius:22px;
+
+  overflow:hidden;
+
+  margin-bottom:18px;
+}
+
+.setting{
+
+  height:58px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 14px;
+
+  border-bottom:1px solid #f8edf2;
+}
+
+.setting:last-child{
+  border-bottom:none;
+}
+
+.setting-left{
+
+  display:flex;
+  align-items:center;
+
+  gap:12px;
+}
+
+.icon{
+
+  width:28px;
+  height:28px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#6e73a3;
+
+  font-size:16px;
+}
+
+.setting-text h4{
+
+  color:#23275e;
+
+  font-size:12px;
+  font-weight:800;
+
+  margin-bottom:1px;
+}
+
+.setting-text p{
+
+  color:#9da2bb;
+
+  font-size:10px;
+  font-weight:700;
+}
+
+.arrow{
+
+  color:#b2b5ca;
+
+  font-size:16px;
+  font-weight:700;
+}
+
+/* =======================
+BOTTOM NAV
+======================= */
+
+.bottom{
+
+  position:fixed;
+
+  left:50%;
+  bottom:14px;
+
+  transform:translateX(-50%);
+
+  width:354px;
+  height:72px;
+
+  background:#fff;
+
+  border:1.5px solid #f2dde7;
+
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+
+  z-index:100;
+
+  box-shadow:
+    0 10px 30px rgba(210,180,255,.12);
+}
+
+/* nav item */
+
+.nav{
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:4px;
+
+  color:#8f94b0;
+
+  font-size:9px;
+  font-weight:700;
+
+  width:58px;
+
+  position:relative;
+  z-index:2;
+}
+
+.nav-icon{
+  font-size:16px;
+}
+
+.nav.active{
+  color:#ff5b91;
+}
+
+/* center button */
+
+.center{
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff7dab 0%,
+      #f05389 100%
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#fff;
+
+  font-size:20px;
+
+  position:relative;
+
+  z-index:3;
+
+  margin-top:-2px;
+
+  box-shadow:
+    0 8px 18px rgba(255,91,143,.16);
+}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- status -->
+
+  <div class="status">
+
+    <div>9:41</div>
+
+    <div class="status-icons">
+      <span>📶</span>
+      <span>📡</span>
+      <span>🔋</span>
+    </div>
+
+  </div>
+
+  <!-- header -->
+
+  <div class="header">
+
+    <div class="back">‹</div>
+
+    <div class="title">
+      Cài đặt & Tuỳ chỉnh
+    </div>
+
+    <div class="gear">
+      ⚙
+    </div>
+
+  </div>
+
+  <!-- profile -->
+
+  <div class="profile">
+
+    <div class="profile-left">
+
+      <div class="avatars">
+
+        <div class="avatar">
+          <img src="https://i.pravatar.cc/100?img=32">
+        </div>
+
+        <div class="avatar">
+          <img src="https://i.pravatar.cc/100?img=12">
+        </div>
+
+      </div>
+
+      <div class="profile-text">
+
+        <h3>
+          Châu & Nam 💕
+        </h3>
+
+        <p>
+          Cùng nhau 427 ngày 💞
+        </p>
+
+      </div>
+
+    </div>
+
+    <button class="edit-btn">
+      Chỉnh sửa cặp đôi
+    </button>
+
+  </div>
+
+  <!-- settings -->
+
+  <div class="settings">
+
+    <div class="setting">
+
+      <div class="setting-left">
+
+        <div class="icon">🎨</div>
+
+        <div class="setting-text">
+
+          <h4>Tùy chỉnh giao diện</h4>
+
+          <p>Chọn màu, theme, tin nhắn,...</p>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-left">
+
+        <div class="icon">🔔</div>
+
+        <div class="setting-text">
+
+          <h4>Thông báo</h4>
+
+          <p>Quản lý thông báo và nhắc nhở</p>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-left">
+
+        <div class="icon">🔒</div>
+
+        <div class="setting-text">
+
+          <h4>Bảo mật & Riêng tư</h4>
+
+          <p>Đăng nhập, mật khẩu, khóa app</p>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-left">
+
+        <div class="icon">💾</div>
+
+        <div class="setting-text">
+
+          <h4>Sao lưu dữ liệu</h4>
+
+          <p>Lưu giữ kỷ niệm của hai bạn</p>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </div>
+
+    <div class="setting">
+
+      <div class="setting-left">
+
+        <div class="icon">🌐</div>
+
+        <div class="setting-text">
+
+          <h4>Ngôn ngữ</h4>
+
+          <p>Tiếng Việt 💞</p>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">›</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- bottom nav -->
+
+<div class="bottom">
+
+  <div class="nav">
+
+    <div class="nav-icon">⌂</div>
+    <div>Home</div>
+
+  </div>
+
+  <div class="nav">
+
+    <div class="nav-icon">🗓</div>
+    <div>Timeline</div>
+
+  </div>
+
+  <div class="center">
+    💗
+  </div>
+
+  <div class="nav">
+
+    <div class="nav-icon">🎁</div>
+    <div>Gifts</div>
+
+  </div>
+
+  <div class="nav active">
+
+    <div class="nav-icon">⚙</div>
+    <div>Profile</div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

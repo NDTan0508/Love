@@ -1,0 +1,35 @@
+{
+  "name": "web-love",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e:auto": "node scripts/e2e-auto.js",
+    "e2e:missed": "node scripts/e2e-missed-notifications.js",
+    "test:watch": "vitest",
+    "qa": "npm run check:migrations && npm run check:rls && npm run typecheck && npm run test && npm run build",
+    "check:migrations": "node scripts/check-migrations.mjs",
+    "check:rls": "node scripts/audit-rls.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.34.0",
+    "next": "14.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.10.0",
+    "@types/react": "18.2.38",
+    "autoprefixer": "10.4.16",
+    "eslint": "8.54.0",
+    "postcss": "8.4.32",
+    "tailwindcss": "3.3.6",
+    "typescript": "5.2.2",
+    "vitest": "^4.1.5"
+  }
+}

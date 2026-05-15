@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Relationship Health</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+
+      --primary:#8f6bff;
+      --primary-dark:#7d56ef;
+
+      --pink:#ff73a8;
+
+      --text:#1f245c;
+      --sub:#7f84a3;
+
+      --bg:#fffafb;
+
+      --card:#ffffff;
+
+      --soft:#f8f4ff;
+
+      --border:#ece3ff;
+    }
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:var(--bg);
+
+      display:flex;
+      justify-content:center;
+
+      color:var(--text);
+    }
+
+    .app{
+      width:100%;
+      max-width:430px;
+      min-height:100vh;
+
+      padding:18px 18px 40px;
+
+      background:
+        radial-gradient(circle at top right,#fff2f6 0%,transparent 32%),
+        radial-gradient(circle at bottom left,#f4efff 0%,transparent 35%),
+        #fffafb;
+
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* =========================
+       STATUS BAR
+    ========================== */
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:22px;
+
+      color:#111;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .status-right{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:13px;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      margin-bottom:28px;
+    }
+
+    .back{
+      font-size:25px;
+      font-weight:700;
+      color:#23275f;
+    }
+
+    .title{
+      font-size:24px;
+      font-weight:900;
+      color:#1f245c;
+
+      letter-spacing:-0.3px;
+    }
+
+    .title span{
+      color:var(--primary);
+    }
+
+    .empty{
+      width:24px;
+    }
+
+    /* =========================
+       WEEK
+    ========================== */
+
+    .week{
+      display:grid;
+      grid-template-columns:repeat(7,1fr);
+
+      gap:6px;
+
+      margin-bottom:30px;
+    }
+
+    .week-day{
+      text-align:center;
+    }
+
+    .week-name{
+      font-size:12px;
+      font-weight:800;
+      color:#9aa0b9;
+
+      margin-bottom:8px;
+    }
+
+    .week-number{
+      width:38px;
+      height:38px;
+
+      border-radius:14px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      margin:auto;
+
+      color:#23275f;
+      font-size:16px;
+      font-weight:900;
+    }
+
+    .week-day.active .week-number{
+      background:linear-gradient(
+        135deg,
+        #9c82ff 0%,
+        #7d5bf1 100%
+      );
+
+      color:#fff;
+
+      box-shadow:
+        0 10px 20px rgba(125,91,241,.22);
+    }
+
+    /* =========================
+       SECTION TITLE
+    ========================== */
+
+    .section-title{
+      font-size:22px;
+      font-weight:900;
+      color:#1f245c;
+
+      margin-bottom:18px;
+      letter-spacing:-0.3px;
+    }
+
+    .section-title span{
+      color:#9d83ff;
+    }
+
+    /* =========================
+       MOOD CARD
+    ========================== */
+
+    .mood-card{
+      position:relative;
+
+      background:rgba(255,255,255,.82);
+
+      border:2px solid #eee5ff;
+
+      border-radius:32px;
+
+      padding:24px 22px 24px;
+
+      margin-bottom:28px;
+
+      backdrop-filter:blur(12px);
+
+      box-shadow:
+        0 14px 28px rgba(168,132,255,.08),
+        inset 0 1px 0 rgba(255,255,255,.8);
+
+      overflow:hidden;
+    }
+
+    .people{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+
+      margin-bottom:18px;
+
+      position:relative;
+      z-index:2;
+    }
+
+    .person{
+      width:86px;
+      text-align:center;
+    }
+
+    .person-name{
+      font-size:16px;
+      font-weight:900;
+      color:#1f245c;
+
+      margin-bottom:12px;
+    }
+
+    .avatar{
+      width:82px;
+      height:82px;
+
+      border-radius:50%;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #f4efff 100%
+        );
+
+      border:2px solid #eee3ff;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      margin:auto;
+
+      font-size:46px;
+
+      box-shadow:
+        0 10px 20px rgba(161,127,255,.08);
+    }
+
+    .mood-center{
+      text-align:center;
+      margin-top:12px;
+    }
+
+    .big-heart{
+      font-size:88px;
+
+      filter:
+        drop-shadow(0 12px 18px rgba(145,110,255,.18));
+
+      margin-bottom:10px;
+    }
+
+    .mood-center h2{
+      font-size:28px;
+      line-height:1.2;
+      font-weight:900;
+      color:#1f245c;
+
+      margin-bottom:10px;
+      letter-spacing:-0.5px;
+    }
+
+    .mood-center p{
+      color:#7d83a1;
+      font-size:16px;
+      font-weight:700;
+      line-height:1.7;
+    }
+
+    /* doodles */
+
+    .doodle{
+      position:absolute;
+      color:#c88dff;
+      font-weight:900;
+      opacity:.95;
+    }
+
+    .d1{
+      left:14px;
+      top:128px;
+      font-size:26px;
+      color:#ffc4dc;
+    }
+
+    .d2{
+      right:10px;
+      top:132px;
+
+      font-size:16px;
+      line-height:1.1;
+
+      transform:rotate(-8deg);
+
+      color:#c26eff;
+    }
+
+    .spark{
+      position:absolute;
+      color:#ff9cc1;
+      font-size:22px;
+    }
+
+    .s1{
+      left:22px;
+      top:84px;
+    }
+
+    .s2{
+      right:30px;
+      top:76px;
+    }
+
+    /* =========================
+       SUGGESTION
+    ========================== */
+
+    .suggest-title{
+      font-size:22px;
+      font-weight:900;
+      color:#1f245c;
+
+      margin-bottom:16px;
+    }
+
+    .quote-card{
+      position:relative;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fbf8ff 0%,
+          #f5efff 100%
+        );
+
+      border-radius:24px;
+
+      padding:20px 22px;
+
+      margin-bottom:18px;
+
+      overflow:hidden;
+    }
+
+    .quote-card p{
+      color:#6f67a7;
+      font-size:16px;
+      line-height:1.8;
+      font-weight:700;
+
+      width:82%;
+    }
+
+    .quote-doodle{
+      position:absolute;
+
+      right:18px;
+      top:14px;
+
+      color:#a96fff;
+
+      font-size:18px;
+      font-weight:900;
+
+      transform:rotate(-8deg);
+
+      line-height:1.2;
+    }
+
+    /* =========================
+       QUESTIONS
+    ========================== */
+
+    .questions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+
+      gap:12px;
+
+      margin-bottom:24px;
+    }
+
+    .question{
+      background:#fff;
+
+      border:2px solid #efe7ff;
+
+      border-radius:18px;
+
+      padding:14px 14px 15px;
+
+      min-height:74px;
+
+      box-shadow:
+        0 8px 18px rgba(150,120,255,.04);
+    }
+
+    .question-title{
+      font-size:14px;
+      font-weight:900;
+      color:#ff5d92;
+
+      margin-bottom:8px;
+    }
+
+    .question p{
+      color:#70769a;
+      font-size:13px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .hug-btn{
+      width:100%;
+      height:62px;
+
+      border:none;
+
+      border-radius:22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #a88cff 0%,
+          #7d5cf1 100%
+        );
+
+      color:#fff;
+
+      font-size:18px;
+      font-weight:900;
+
+      box-shadow:
+        0 16px 30px rgba(125,92,241,.28);
+
+      margin-bottom:14px;
+    }
+
+    .footer-note{
+      text-align:center;
+
+      color:#7d83a1;
+
+      font-size:14px;
+      line-height:1.6;
+
+      font-weight:700;
+    }
+
+    .footer-note span{
+      color:#8f6bff;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div>9:41</div>
+
+    <div class="status-right">
+      <span>📶</span>
+      <span>📡</span>
+      <span>🔋</span>
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <div class="back">‹</div>
+
+    <div class="title">
+      Sức khỏe mối quan hệ <span>💜</span>
+    </div>
+
+    <div class="empty"></div>
+
+  </div>
+
+  <!-- WEEK -->
+
+  <div class="week">
+
+    <div class="week-day">
+      <div class="week-name">T2</div>
+      <div class="week-number">13</div>
+    </div>
+
+    <div class="week-day">
+      <div class="week-name">T3</div>
+      <div class="week-number">14</div>
+    </div>
+
+    <div class="week-day active">
+      <div class="week-name">T4</div>
+      <div class="week-number">15</div>
+    </div>
+
+    <div class="week-day">
+      <div class="week-name">T5</div>
+      <div class="week-number">16</div>
+    </div>
+
+    <div class="week-day">
+      <div class="week-name">T6</div>
+      <div class="week-number">17</div>
+    </div>
+
+    <div class="week-day">
+      <div class="week-name">T7</div>
+      <div class="week-number">18</div>
+    </div>
+
+    <div class="week-day">
+      <div class="week-name">CN</div>
+      <div class="week-number">19</div>
+    </div>
+
+  </div>
+
+  <!-- TITLE -->
+
+  <div class="section-title">
+    Mood hôm nay của chúng ta <span>💭</span>
+  </div>
+
+  <!-- MOOD CARD -->
+
+  <div class="mood-card">
+
+    <div class="spark s1">✦</div>
+    <div class="spark s2">✦</div>
+
+    <div class="doodle d1">＋</div>
+
+    <div class="doodle d2">
+      mood<br>
+      cặp đôi
+    </div>
+
+    <div class="people">
+
+      <div class="person">
+
+        <div class="person-name">
+          Châu
+        </div>
+
+        <div class="avatar">
+          👧
+        </div>
+
+      </div>
+
+      <div class="person">
+
+        <div class="person-name">
+          Nam
+        </div>
+
+        <div class="avatar">
+          👦
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="mood-center">
+
+      <div class="big-heart">
+        💜
+      </div>
+
+      <h2>
+        Cả hai đang không vui
+      </h2>
+
+      <p>
+        Hãy cùng quan tâm nhau nhé 💞
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- SUGGEST -->
+
+  <div class="suggest-title">
+    Gợi ý cho hôm nay
+  </div>
+
+  <div class="quote-card">
+
+    <p>
+      Đôi khi, điều quý giá nhất là bạn ở bên cạnh,
+      không cần nói gì cả 💜
+    </p>
+
+    <div class="quote-doodle">
+      gợi ý nhẹ<br>
+      nhàng ✨
+    </div>
+
+  </div>
+
+  <!-- QUESTIONS -->
+
+  <div class="questions">
+
+    <div class="question">
+
+      <div class="question-title">
+        💗 Đừng ngại nói lời yêu
+      </div>
+
+      <p>
+        Sao lúc nãy bạn căng vậy?
+      </p>
+
+    </div>
+
+    <div class="question">
+
+      <div class="question-title">
+        💜 Hãy hỏi câu này
+      </div>
+
+      <p>
+        Hôm nay của bạn thế nào?
+      </p>
+
+    </div>
+
+    <div class="question">
+
+      <div class="question-title">
+        ✨ Bạn chưa ổn phải không nè?
+      </div>
+
+      <p>
+        Thiếu tí yêu bạn
+      </p>
+
+    </div>
+
+    <div class="question">
+
+      <div class="question-title">
+        💭 Có điều gì làm bạn mệt sao?
+      </div>
+
+      <p>
+        Một mai đừng gồng lòng
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- BUTTON -->
+
+  <button class="hug-btn">
+    💞 Gửi ôm ảo cho nhau
+  </button>
+
+  <div class="footer-note">
+    Đôi khi một cái ôm cũng đủ chữa lành <span>💜</span>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Blog - Nơi viết tâm sự</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+
+      --primary:#ff5b91;
+      --primary-dark:#ff4a84;
+
+      --text:#1f245c;
+      --sub:#8a90ad;
+
+      --bg:#fffafb;
+
+      --soft:#fff2f6;
+
+      --border:#f3dfe7;
+
+      --card:#ffffff;
+    }
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:var(--bg);
+
+      display:flex;
+      justify-content:center;
+
+      color:var(--text);
+    }
+
+    .app{
+      width:100%;
+      max-width:430px;
+      min-height:100vh;
+
+      padding:18px 18px 42px;
+
+      background:
+        radial-gradient(circle at top right,#fff1f5 0%,transparent 30%),
+        radial-gradient(circle at bottom left,#f6efff 0%,transparent 35%),
+        #fffafb;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* =========================
+       STATUS BAR
+    ========================== */
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:22px;
+
+      color:#111;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .status-right{
+      display:flex;
+      align-items:center;
+      gap:6px;
+
+      font-size:13px;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header{
+      text-align:center;
+
+      margin-bottom:22px;
+    }
+
+    .header h1{
+      font-size:24px;
+      font-weight:900;
+
+      color:#1f245c;
+
+      letter-spacing:-0.3px;
+
+      margin-bottom:6px;
+    }
+
+    .header h1 span{
+      color:var(--primary);
+    }
+
+    .header p{
+      color:#8b90ad;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    /* =========================
+       TABS
+    ========================== */
+
+    .tabs{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:20px;
+
+      position:relative;
+    }
+
+    .tab{
+      flex:1;
+
+      text-align:center;
+
+      color:#8a90ad;
+      font-size:15px;
+      font-weight:800;
+
+      padding-bottom:14px;
+
+      position:relative;
+    }
+
+    .tab.active{
+      color:#1f245c;
+    }
+
+    .tab.active::after{
+      content:"";
+
+      position:absolute;
+
+      left:50%;
+      transform:translateX(-50%);
+
+      bottom:0;
+
+      width:84px;
+      height:4px;
+
+      border-radius:999px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ff7ca8 0%,
+          #ff4f86 100%
+        );
+    }
+
+    /* =========================
+       QUOTE BOX
+    ========================== */
+
+    .quote-box{
+      position:relative;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff5f8 0%,
+          #fff0f5 100%
+        );
+
+      border-radius:24px;
+
+      padding:18px 20px;
+
+      margin-bottom:18px;
+
+      overflow:hidden;
+    }
+
+    .quote-box p{
+      color:#7b6d8e;
+      font-size:16px;
+      line-height:1.7;
+      font-weight:700;
+
+      width:78%;
+    }
+
+    .spark{
+      position:absolute;
+
+      color:#ff9bbd;
+      font-size:22px;
+
+      opacity:.9;
+    }
+
+    .spark.one{
+      right:28px;
+      top:16px;
+    }
+
+    .spark.two{
+      right:16px;
+      bottom:18px;
+    }
+
+    /* =========================
+       POSTS
+    ========================== */
+
+    .posts{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .post{
+      background:#fff;
+
+      border:2px solid #f3dfe7;
+
+      border-radius:28px;
+
+      padding:18px;
+
+      box-shadow:
+        0 10px 22px rgba(255,145,180,.05);
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    .post-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+
+      gap:16px;
+
+      margin-bottom:16px;
+    }
+
+    .post-left{
+      flex:1;
+    }
+
+    .post-title{
+      display:flex;
+      align-items:center;
+      gap:8px;
+
+      margin-bottom:6px;
+    }
+
+    .post-title h3{
+      color:#1f245c;
+      font-size:17px;
+      font-weight:900;
+      line-height:1.35;
+    }
+
+    .post-date{
+      color:#9aa0bb;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .post-text{
+      color:#5f6588;
+      font-size:15px;
+      line-height:1.8;
+      font-weight:700;
+    }
+
+    .post-image{
+      width:118px;
+      height:118px;
+
+      border-radius:22px;
+
+      overflow:hidden;
+
+      flex-shrink:0;
+    }
+
+    .post-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    /* =========================
+       AUDIO PLAYER
+    ========================== */
+
+    .audio{
+      margin-top:12px;
+    }
+
+    .audio-player{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .play{
+      width:34px;
+      height:34px;
+
+      border-radius:50%;
+
+      background:#fff3f7;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      color:#7f6cff;
+
+      font-size:14px;
+
+      flex-shrink:0;
+    }
+
+    .wave{
+      flex:1;
+
+      height:34px;
+
+      display:flex;
+      align-items:center;
+      gap:3px;
+    }
+
+    .bar{
+      width:4px;
+
+      border-radius:999px;
+
+      background:#ff6f9e;
+    }
+
+    .time{
+      color:#8d92ad;
+      font-size:13px;
+      font-weight:800;
+
+      flex-shrink:0;
+    }
+
+    /* =========================
+       WAVE HEIGHTS
+    ========================== */
+
+    .b1{height:8px;}
+    .b2{height:18px;}
+    .b3{height:12px;}
+    .b4{height:24px;}
+    .b5{height:14px;}
+    .b6{height:28px;}
+    .b7{height:10px;}
+    .b8{height:20px;}
+    .b9{height:12px;}
+    .b10{height:26px;}
+    .b11{height:14px;}
+    .b12{height:22px;}
+    .b13{height:9px;}
+    .b14{height:18px;}
+    .b15{height:12px;}
+
+    /* =========================
+       DOODLES
+    ========================== */
+
+    .doodle{
+      position:absolute;
+
+      color:#ffb3cb;
+
+      font-size:22px;
+
+      opacity:.9;
+    }
+
+    .d1{
+      right:18px;
+      top:18px;
+    }
+
+    .d2{
+      right:24px;
+      bottom:20px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div>9:41</div>
+
+    <div class="status-right">
+      <span>📶</span>
+      <span>📡</span>
+      <span>🔋</span>
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <h1>
+      Blog - Nơi viết tâm sự <span>🎯</span>
+    </h1>
+
+    <p>
+      Lưu giữ cảm xúc và những điều muốn nói 💞
+    </p>
+
+  </div>
+
+  <!-- TABS -->
+
+  <div class="tabs">
+
+    <div class="tab">
+      Công khai
+    </div>
+
+    <div class="tab active">
+      Riêng tư Châu
+    </div>
+
+  </div>
+
+  <!-- QUOTE -->
+
+  <div class="quote-box">
+
+    <div class="spark one">✦</div>
+    <div class="spark two">✦</div>
+
+    <p>
+      Nơi chỉ mình bạn có thể viết
+      những điều muốn nói 💌
+    </p>
+
+  </div>
+
+  <!-- POSTS -->
+
+  <div class="posts">
+
+    <!-- POST -->
+
+    <div class="post">
+
+      <div class="post-top">
+
+        <div class="post-left">
+
+          <div class="post-title">
+
+            <span>💗</span>
+
+            <h3>
+              Hôm nay nhớ anh nhiều
+            </h3>
+
+          </div>
+
+          <div class="post-date">
+            14/05/2024 • 2h trước
+          </div>
+
+        </div>
+
+        <div class="post-image">
+
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop">
+
+        </div>
+
+      </div>
+
+      <div class="post-text">
+
+        Có những ngày chỉ muốn viết ra...
+        bao nhớ yêu dịu dàng này 💞
+
+      </div>
+
+    </div>
+
+    <!-- POST -->
+
+    <div class="post">
+
+      <div class="doodle d1">✦</div>
+
+      <div class="post-title">
+
+        <span>💗</span>
+
+        <h3>
+          Một ngày bình yên
+        </h3>
+
+      </div>
+
+      <div class="post-date" style="margin-bottom:16px;">
+        10/05/2024
+      </div>
+
+      <div class="audio">
+
+        <div class="audio-player">
+
+          <div class="play">
+            ▶
+          </div>
+
+          <div class="wave">
+
+            <div class="bar b1"></div>
+            <div class="bar b2"></div>
+            <div class="bar b3"></div>
+            <div class="bar b4"></div>
+            <div class="bar b5"></div>
+            <div class="bar b6"></div>
+            <div class="bar b7"></div>
+            <div class="bar b8"></div>
+            <div class="bar b9"></div>
+            <div class="bar b10"></div>
+            <div class="bar b11"></div>
+            <div class="bar b12"></div>
+            <div class="bar b13"></div>
+            <div class="bar b14"></div>
+            <div class="bar b15"></div>
+
+          </div>
+
+          <div class="time">
+            00:45
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- POST -->
+
+    <div class="post">
+
+      <div class="doodle d2">✦</div>
+
+      <div class="post-title">
+
+        <span>💗</span>
+
+        <h3>
+          Cảm ơn vì đã ở đây
+        </h3>
+
+      </div>
+
+      <div class="post-date" style="margin-bottom:14px;">
+        05/05/2024
+      </div>
+
+      <div class="post-text">
+
+        Có bóng dốc của anh nên còn
+        thật đẹp quài gần bên nhau...
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

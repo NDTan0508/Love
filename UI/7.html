@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Gifts & Wishlist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+
+      --primary:#ff5c91;
+      --primary-dark:#ff4a84;
+
+      --text:#1f245c;
+      --sub:#8c91ad;
+
+      --bg:#fffafb;
+
+      --soft:#fff3f7;
+
+      --border:#f3dfe7;
+
+      --card:#ffffff;
+    }
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:var(--bg);
+
+      display:flex;
+      justify-content:center;
+
+      color:var(--text);
+    }
+
+    .app{
+      width:100%;
+      max-width:430px;
+      min-height:100vh;
+
+      padding:18px 18px 42px;
+
+      background:
+        radial-gradient(circle at top right,#fff1f5 0%,transparent 30%),
+        radial-gradient(circle at bottom left,#f7f0ff 0%,transparent 35%),
+        #fffafb;
+    }
+
+    /* =========================
+       STATUS BAR
+    ========================== */
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:22px;
+
+      color:#111;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .status-right{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:13px;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      margin-bottom:22px;
+    }
+
+    .back{
+      font-size:25px;
+      color:#1f245c;
+      font-weight:700;
+    }
+
+    .title{
+      font-size:22px;
+      font-weight:900;
+      color:#1f245c;
+      letter-spacing:-0.3px;
+    }
+
+    .menu{
+      font-size:24px;
+      color:#1f245c;
+    }
+
+    /* =========================
+       HERO TITLE
+    ========================== */
+
+    .hero{
+      text-align:center;
+      margin-bottom:22px;
+    }
+
+    .hero h1{
+      font-size:26px;
+      font-weight:900;
+      color:#1f245c;
+
+      margin-bottom:6px;
+      letter-spacing:-0.4px;
+    }
+
+    .hero p{
+      color:#8c91ad;
+      font-size:15px;
+      font-weight:700;
+    }
+
+    /* =========================
+       TOP TABS
+    ========================== */
+
+    .top-tabs{
+      display:flex;
+      gap:10px;
+
+      margin-bottom:16px;
+    }
+
+    .top-tab{
+      flex:1;
+
+      height:50px;
+
+      border-radius:16px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      background:#fff;
+
+      border:2px solid #f2dfe7;
+
+      color:#8b90ac;
+      font-size:14px;
+      font-weight:800;
+
+      white-space:nowrap;
+    }
+
+    .top-tab.active{
+      background:
+        linear-gradient(
+          135deg,
+          #ff7ca8 0%,
+          #ff4f86 100%
+        );
+
+      color:#fff;
+
+      border:none;
+
+      box-shadow:
+        0 10px 20px rgba(255,91,143,.18);
+    }
+
+    /* =========================
+       FILTERS
+    ========================== */
+
+    .filters{
+      display:flex;
+      gap:10px;
+
+      overflow:auto;
+
+      margin-bottom:22px;
+
+      scrollbar-width:none;
+    }
+
+    .filters::-webkit-scrollbar{
+      display:none;
+    }
+
+    .filter{
+      padding:10px 16px;
+
+      border-radius:999px;
+
+      background:#fff;
+
+      border:2px solid #f2dfe7;
+
+      white-space:nowrap;
+
+      color:#8b90ac;
+      font-size:13px;
+      font-weight:800;
+
+      flex-shrink:0;
+    }
+
+    .filter.active{
+      background:#ffe7ef;
+      color:#ff5b91;
+      border-color:#ffd3e2;
+    }
+
+    /* =========================
+       PRODUCTS GRID
+    ========================== */
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+
+      gap:16px;
+    }
+
+    .product{
+      background:#fff;
+
+      border:2px solid #f3dfe7;
+
+      border-radius:28px;
+
+      padding:16px;
+
+      position:relative;
+
+      overflow:hidden;
+
+      box-shadow:
+        0 12px 22px rgba(255,145,180,.05);
+    }
+
+    .product-image{
+      height:170px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      margin-bottom:14px;
+    }
+
+    .product-image img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+    }
+
+    .product h3{
+      color:#1f245c;
+      font-size:15px;
+      line-height:1.45;
+      font-weight:900;
+
+      margin-bottom:8px;
+
+      min-height:42px;
+    }
+
+    .price{
+      color:#8c91ad;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .heart{
+      position:absolute;
+
+      right:14px;
+      bottom:14px;
+
+      font-size:18px;
+      color:#ff78a7;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div>9:41</div>
+
+    <div class="status-right">
+      <span>📶</span>
+      <span>📡</span>
+      <span>🔋</span>
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <div class="back">‹</div>
+
+    <div class="title">
+      7. Gifts & Wishlist.png
+    </div>
+
+    <div class="menu">⋯</div>
+
+  </div>
+
+  <!-- HERO -->
+
+  <div class="hero">
+
+    <h1>
+      Gợi ý quà cho Châu 🎁
+    </h1>
+
+    <p>
+      Những món quà đáng yêu dành riêng cho người ấy 💞
+    </p>
+
+  </div>
+
+  <!-- TOP TABS -->
+
+  <div class="top-tabs">
+
+    <div class="top-tab active">
+      Gợi ý cho bạn
+    </div>
+
+    <div class="top-tab">
+      Wishlist của Châu
+    </div>
+
+  </div>
+
+  <!-- FILTERS -->
+
+  <div class="filters">
+
+    <div class="filter active">
+      Sinh nhật
+    </div>
+
+    <div class="filter">
+      Anniversary
+    </div>
+
+    <div class="filter">
+      Lễ 20/10
+    </div>
+
+    <div class="filter">
+      Khác
+    </div>
+
+  </div>
+
+  <!-- GRID -->
+
+  <div class="grid">
+
+    <!-- item -->
+
+    <div class="product">
+
+      <div class="product-image">
+
+        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1200&auto=format&fit=crop"/>
+
+      </div>
+
+      <h3>
+        Dior Lip Glow
+      </h3>
+
+      <div class="price">
+        880.000đ
+      </div>
+
+      <div class="heart">
+        ♡
+      </div>
+
+    </div>
+
+    <!-- item -->
+
+    <div class="product">
+
+      <div class="product-image">
+
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop"/>
+
+      </div>
+
+      <h3>
+        Máy ảnh Fujifilm Instax Mini 12
+      </h3>
+
+      <div class="price">
+        2.290.000đ
+      </div>
+
+      <div class="heart">
+        ♡
+      </div>
+
+    </div>
+
+    <!-- item -->
+
+    <div class="product">
+
+      <div class="product-image">
+
+        <img src="https://images.unsplash.com/photo-1563241527-3004b7be0ffd?q=80&w=1200&auto=format&fit=crop"/>
+
+      </div>
+
+      <h3>
+        LEGO Flower Bouquet
+      </h3>
+
+      <div class="price">
+        1.290.000đ
+      </div>
+
+      <div class="heart">
+        ♡
+      </div>
+
+    </div>
+
+    <!-- item -->
+
+    <div class="product">
+
+      <div class="product-image">
+
+        <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?q=80&w=1200&auto=format&fit=crop"/>
+
+      </div>
+
+      <h3>
+        Nến thơm Vanilla
+      </h3>
+
+      <div class="price">
+        450.000đ
+      </div>
+
+      <div class="heart">
+        ♡
+      </div>
+
+    </div>
+
+    <!-- item -->
+
+    <div class="product">
+
+      <div class="product-image">
+
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop"/>
+
+      </div>
+
+      <h3>
+        Album ảnh handmade
+      </h3>
+
+      <div class="price">
+        320.000đ
+      </div>
+
+      <div class="heart">
+        ♡
+      </div>
+
+    </div>
+
+    <!-- item -->
+
+    <div class="product">
+
+      <div class="product-image">
+
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop"/>
+
+      </div>
+
+      <h3>
+        Tai nghe Sony WH-CH520
+      </h3>
+
+      <div class="price">
+        1.390.000đ
+      </div>
+
+      <div class="heart">
+        ♡
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

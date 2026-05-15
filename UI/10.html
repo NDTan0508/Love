@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Date Ideas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+
+      --primary:#ff5c91;
+      --primary-dark:#ff4b82;
+
+      --text:#1f245c;
+      --sub:#8b90ad;
+
+      --bg:#fffafb;
+
+      --soft:#fff3f7;
+
+      --border:#f3dfe7;
+
+      --card:#ffffff;
+
+      --purple:#9f7fff;
+    }
+
+    body{
+      font-family:'Nunito',sans-serif;
+      background:var(--bg);
+
+      display:flex;
+      justify-content:center;
+
+      color:var(--text);
+    }
+
+    .app{
+      width:100%;
+      max-width:430px;
+      min-height:100vh;
+
+      padding:18px 18px 40px;
+
+      background:
+        radial-gradient(circle at top right,#fff1f5 0%,transparent 30%),
+        radial-gradient(circle at bottom left,#f6efff 0%,transparent 35%),
+        #fffafb;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* =========================
+       STATUS
+    ========================== */
+
+    .status{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:22px;
+
+      color:#111;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .status-right{
+      display:flex;
+      gap:6px;
+      align-items:center;
+
+      font-size:13px;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+
+      margin-bottom:24px;
+    }
+
+    .back{
+      font-size:25px;
+      color:#1f245c;
+      font-weight:700;
+    }
+
+    .title{
+      font-size:22px;
+      font-weight:900;
+
+      color:#1f245c;
+
+      letter-spacing:-0.3px;
+    }
+
+    .menu{
+      font-size:24px;
+      color:#1f245c;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      text-align:center;
+
+      margin-bottom:22px;
+
+      position:relative;
+    }
+
+    .hero h1{
+      color:#1f245c;
+      font-size:28px;
+      font-weight:900;
+
+      margin-bottom:8px;
+    }
+
+    .hero p{
+      color:#8b90ad;
+      font-size:15px;
+      line-height:1.6;
+      font-weight:700;
+    }
+
+    .idea-doodle{
+      position:absolute;
+
+      right:10px;
+      top:4px;
+
+      color:#b06fff;
+
+      font-size:16px;
+      line-height:1.4;
+
+      font-weight:900;
+
+      transform:rotate(-8deg);
+    }
+
+    .idea-doodle::after{
+      content:"↷";
+
+      position:absolute;
+
+      left:-8px;
+      bottom:-22px;
+
+      font-size:28px;
+
+      color:#c18aff;
+    }
+
+    /* =========================
+       WEATHER CARD
+    ========================== */
+
+    .weather-card{
+      background:#fff;
+
+      border:2px solid #f3dfe7;
+
+      border-radius:30px;
+
+      padding:20px;
+
+      margin-bottom:18px;
+
+      box-shadow:
+        0 12px 24px rgba(255,145,180,.05);
+    }
+
+    .weather-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:18px;
+    }
+
+    .weather-left{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .weather-icon{
+      width:52px;
+      height:52px;
+
+      border-radius:18px;
+
+      background:#fff4d9;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      font-size:28px;
+    }
+
+    .temp{
+      color:#1f245c;
+      font-size:32px;
+      line-height:1;
+      font-weight:900;
+
+      margin-bottom:6px;
+    }
+
+    .weather-text{
+      color:#8c91ad;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .location{
+      text-align:right;
+    }
+
+    .location h3{
+      color:#1f245c;
+      font-size:18px;
+      font-weight:900;
+
+      margin-bottom:6px;
+    }
+
+    .location p{
+      color:#8c91ad;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    /* =========================
+       FILTERS
+    ========================== */
+
+    .filters{
+      display:flex;
+      gap:10px;
+
+      overflow:auto;
+
+      margin-bottom:18px;
+
+      scrollbar-width:none;
+    }
+
+    .filters::-webkit-scrollbar{
+      display:none;
+    }
+
+    .filter{
+      padding:10px 16px;
+
+      border-radius:999px;
+
+      background:#fff;
+
+      border:2px solid #f2dfe7;
+
+      white-space:nowrap;
+
+      color:#8b90ad;
+      font-size:13px;
+      font-weight:800;
+
+      flex-shrink:0;
+    }
+
+    .filter.active{
+      background:#ffe7ef;
+      border-color:#ffd5e2;
+
+      color:#ff5c91;
+    }
+
+    /* =========================
+       SELECT ROW
+    ========================== */
+
+    .selects{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:18px;
+    }
+
+    .select{
+      display:flex;
+      align-items:center;
+      gap:6px;
+
+      color:#6f7598;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .select span{
+      color:#1f245c;
+      font-weight:900;
+    }
+
+    /* =========================
+       DATE CARDS
+    ========================== */
+
+    .date-list{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+
+      margin-bottom:22px;
+    }
+
+    .date-card{
+      background:#fff;
+
+      border:2px solid #f3dfe7;
+
+      border-radius:26px;
+
+      padding:14px;
+
+      display:flex;
+      align-items:center;
+      gap:14px;
+
+      box-shadow:
+        0 10px 22px rgba(255,145,180,.05);
+    }
+
+    .date-image{
+      width:84px;
+      height:84px;
+
+      border-radius:18px;
+
+      overflow:hidden;
+
+      flex-shrink:0;
+    }
+
+    .date-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .date-content{
+      flex:1;
+    }
+
+    .date-content h3{
+      color:#1f245c;
+      font-size:17px;
+      line-height:1.4;
+      font-weight:900;
+
+      margin-bottom:8px;
+    }
+
+    .date-content p{
+      color:#8b90ad;
+      font-size:14px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    .heart{
+      color:#ff6c9d;
+      font-size:24px;
+
+      flex-shrink:0;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .random-btn{
+      width:100%;
+      height:62px;
+
+      border:none;
+
+      border-radius:22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ff7ca8 0%,
+          #ff4f86 100%
+        );
+
+      color:#fff;
+
+      font-size:17px;
+      font-weight:900;
+
+      box-shadow:
+        0 14px 24px rgba(255,91,143,.2);
+
+      margin-bottom:24px;
+    }
+
+    /* =========================
+       FOOTER DOODLE
+    ========================== */
+
+    .footer-doodle{
+      text-align:center;
+
+      color:#a56eff;
+
+      font-size:16px;
+      line-height:1.5;
+
+      font-weight:900;
+
+      transform:rotate(-6deg);
+    }
+
+    .footer-doodle::before{
+      content:"↶";
+
+      display:block;
+
+      font-size:32px;
+
+      margin-bottom:-6px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div>9:41</div>
+
+    <div class="status-right">
+      <span>📶</span>
+      <span>📡</span>
+      <span>🔋</span>
+    </div>
+
+  </div>
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <div class="back">‹</div>
+
+    <div class="title">
+      10. Date Ideas.png
+    </div>
+
+    <div class="menu">⋯</div>
+
+  </div>
+
+  <!-- HERO -->
+
+  <div class="hero">
+
+    <h1>
+      Gợi ý hẹn hò thông minh 💡
+    </h1>
+
+    <p>
+      Dựa vào thời tiết và sở thích của hai bạn 💞
+    </p>
+
+    <div class="idea-doodle">
+      dựa vào<br>
+      thời tiết<br>
+      ✨
+    </div>
+
+  </div>
+
+  <!-- WEATHER -->
+
+  <div class="weather-card">
+
+    <div class="weather-top">
+
+      <div class="weather-left">
+
+        <div class="weather-icon">
+          🌤️
+        </div>
+
+        <div>
+
+          <div class="temp">
+            28°C
+          </div>
+
+          <div class="weather-text">
+            Trời mát mẻ
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="location">
+
+        <h3>Hà Nội</h3>
+
+        <p>
+          Địa điểm local
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- filters -->
+
+    <div class="filters">
+
+      <div class="filter active">
+        Ăn uống
+      </div>
+
+      <div class="filter">
+        Vui chơi
+      </div>
+
+      <div class="filter">
+        Lãng mạn
+      </div>
+
+      <div class="filter">
+        Yên tĩnh
+      </div>
+
+    </div>
+
+    <!-- selects -->
+
+    <div class="selects">
+
+      <div class="select">
+        Budget:
+        <span>200k - 500k</span>
+        ▼
+      </div>
+
+      <div class="select">
+        Sắp xếp:
+        <span>Gần nhất</span>
+      </div>
+
+    </div>
+
+    <!-- date list -->
+
+    <div class="date-list">
+
+      <!-- item -->
+
+      <div class="date-card">
+
+        <div class="date-image">
+
+          <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1200&auto=format&fit=crop"/>
+
+        </div>
+
+        <div class="date-content">
+
+          <h3>
+            Mì cay 7 cấp độ 🌶️
+          </h3>
+
+          <p>
+            0.8 km • 40.000đ/người
+          </p>
+
+        </div>
+
+        <div class="heart">
+          ♥
+        </div>
+
+      </div>
+
+      <!-- item -->
+
+      <div class="date-card">
+
+        <div class="date-image">
+
+          <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop"/>
+
+        </div>
+
+        <div class="date-content">
+
+          <h3>
+            Xem phim lãng mạn 🎞️
+          </h3>
+
+          <p>
+            1.2 km • CGV Vincom
+          </p>
+
+        </div>
+
+        <div class="heart">
+          ♥
+        </div>
+
+      </div>
+
+      <!-- item -->
+
+      <div class="date-card">
+
+        <div class="date-image">
+
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop"/>
+
+        </div>
+
+        <div class="date-content">
+
+          <h3>
+            Cafe view hồ ☕
+          </h3>
+
+          <p>
+            1.5 km • 50.000đ/người
+          </p>
+
+        </div>
+
+        <div class="heart">
+          ♥
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+
+    <button class="random-btn">
+      🎲 Random date picker 💝
+    </button>
+
+    <!-- footer -->
+
+    <div class="footer-doodle">
+      bốc thăm<br>
+      bất ngờ ✨
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
